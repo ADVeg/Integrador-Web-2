@@ -9,7 +9,7 @@ function verificar(params) {
         $('#bt-2').css('background-color', 'green');
     } else if (params === $('#bt-3').text()) {
         $('#bt-3').css('background-color', 'green');
-    } else {
+    } else if (params === $('#bt-4').text()) {
         $('#bt-4').css('background-color', 'green');
     }
 }
@@ -20,13 +20,13 @@ $('#bt-5').on('click', function () { //cancelar
 
 $('#bt-6').on('click', function () { //siguiente
     postP(res);
+    $('#contador').text('10').css({ 'color': 'green' });
 });
 
 $('#bt-1, #bt-2, #bt-3, #bt-4').on('click', function () { ///botones respuestas
-    $('#bt-1, #bt-2, #bt-3, #bt-4').css({ 'background-color': 'red' });
+    $('#bt-1, #bt-2, #bt-3, #bt-4').css({ 'background-color': 'red' }).prop('disabled', true);
     res = $(this).text();
     verif(res); ///enviar respuesta
-    $('#bt-1, #bt-2, #bt-3, #bt-4').prop('disabled', true);
     $('#container1').css('display', 'block');
 });
 
@@ -35,6 +35,7 @@ $('#bt-log').on('click', function (event) { //boton enviar log
     let nom = $('#inlineFormInputGroupUsername').val().trim();
     if (nom.length > 5) {   //Control de longitud
         post(nom);
+        time();
     } else {
         verifcantcaracteres();
     }
@@ -42,19 +43,18 @@ $('#bt-log').on('click', function (event) { //boton enviar log
 
 function verif(res) {
     $.ajax({
-        type:'get',
-        url:'/verif',
-        success:function(data){
-            console.log(data.respuesta);
-            if (data.respuesta===res) {
-                $('#mensaje1').text('respuesta correcta').css({'display': 'block','font-weight': 'bold','margin-top': '10px', 'background-color': 'green'});
+        type: 'get',
+        url: '/verif',
+        success: function (data) {
+            if (data.respuesta === res) {
+                $('#mensaje1').text('respuesta correcta').css({ 'display': 'block', 'font-weight': 'bold', 'margin-top': '10px', 'background-color': 'green' });
                 verificar(res);
             } else {
-                $('#mensaje1').text('respuesta incorrecta').css({'display': 'block','font-weight': 'bold','margin-top': '10px', 'background-color': 'red'});
+                $('#mensaje1').text('respuesta incorrecta').css({ 'display': 'block', 'font-weight': 'bold', 'margin-top': '10px', 'background-color': 'red' });
                 verificar(data.respuesta);
             }
         },
-        error:function(error){
+        error: function (error) {
             console.error("Error:", error);
         }
     })
@@ -62,7 +62,7 @@ function verif(res) {
 
 function postP(res) {
     $.ajax({
-        type: 'POST',
+        type: 'get',
         url: '/postP',
         data: { respuesta: res },
         success: function (data) {
@@ -81,25 +81,34 @@ function vistapostP(data) { ////vista postP
     if (data.op === 0) {
         $('#pregunta').text('¿DE QUE PAIS ES LA BANDERA?');
         cargarvistapostP(data);
+        time();
     } else if (data.op === 1) {
         $('#pregunta').text('¿CUAL ES LA CAPITAL DE ' + data.psa + '?');
         cargarvistapostP(data);
+        time();
     } else {
-        $('#container').css({'display': 'none'});
-        $('#container2').css({'display': 'block'});
-        $('#nom').text('Felicidades '+data.nombre);
-        $('#punt').text('Su puntuacion fue '+data.puntuacion);
-        ////cambiar todo a felicitar -------------------------------------------------------------------------------------------------
+        $('#container').css({ 'display': 'none' });
+        $('#container2').css({ 'display': 'block' });
+        $('#nom').text('Felicidades ' + data.nombre);
+        $('#punt').text('Su puntuacion fue ' + data.puntuacion);
+        pas();
     }
 }
 
+function pas() {
+    setTimeout(function () {
+        window.location.href = '/Puntuacion/';
+    }, 5000);
+}
+
+
 async function cargarvistapostP(data) {
-    if (data.op===0) {
+    if (data.op === 0) {
         completarpaises(data);
     } else {
         completarcapitales(data);
     }
-    await $('#bandera').attr('src', data.img).css({'height': '10rem', 'width': '20rem'});
+    await $('#bandera').attr('src', data.img).css({ 'height': '10rem', 'width': '20rem' });
 }
 
 function post(nom) {
@@ -118,11 +127,12 @@ function post(nom) {
 
 async function vistaPost(data) { ///vista post
     if (data.respuesta < 1) {
-        await $('#bandera').attr('src', data.img).css({'height': '10rem', 'width': '20rem'}); //cargar bandera
+        await $('#bandera').attr('src', data.img).css({ 'height': '10rem', 'width': '20rem' }); //cargar bandera
         $('#container-login').css('display', 'none');
         $('#container').css({ 'display': 'block', 'text-align': 'center', 'background-color': '#949494d3', 'padding': '20px', 'border': '1px solid #949494', 'border-radius': '5px', 'width': '31.25rem' });
         $('#bt-1, #bt-2, #bt-3, #bt-4').css({ 'width': '14.063rem', 'max-witdth': '100%', 'background-color': '' });
         completarpaises(data); //completar paises
+        $('#contador').text('10').css({ 'color': 'green' });
     } else if (data.respuesta < 2) { //si nombre ya existe
         $('#mensaje').text('* El nombre ya existe').css({
             'display': 'block',
@@ -162,7 +172,6 @@ function completarcapitales(data) { ///completar capitales
 
 function completar(params) { ///cargar paises
     function c(params) {
-        console.log(params.common);
         if (cont === 0) {
             $('#bt-1').text(params.common);
         } else if (cont === 1) {
@@ -174,7 +183,7 @@ function completar(params) { ///cargar paises
             cont = -1;
         }
     }
-    if (typeof params.common==='undefined') {
+    if (typeof params.common === 'undefined') {
         c('No tiene');
     } else {
         c(params);
@@ -183,7 +192,6 @@ function completar(params) { ///cargar paises
 }
 function completarcap(params) { ///cargar capitales
     function s(params) {
-        console.log(params);
         if (cont === 0) {
             $('#bt-1').text(params);
         } else if (cont === 1) {
@@ -195,10 +203,39 @@ function completarcap(params) { ///cargar capitales
             cont = -1;
         }
     }
-    if (typeof params[0]==='undefined') {
+    if (typeof params[0] === 'undefined') {
         s('No tiene');
     } else {
         s(params[0]);
     }
     cont++;
+}
+
+function time() {
+    let op = 0;
+    function disabledButton() { ///desabilita botones
+        $('#bt-1, #bt-2, #bt-3, #bt-4').prop('disabled', true).css({ 'background-color': 'red' });
+        verif('');
+        $('#container1').css('display', 'block');
+    }
+
+    function actualizarTimeRestante(timeRest) { ///actualizar tiempo
+        $('#contador').text(timeRest);
+    }
+
+    let timeRest = 10;
+    actualizarTimeRestante(timeRest);
+
+    const intervalo = setInterval(() => {
+        timeRest--;
+        actualizarTimeRestante(timeRest);
+        if (timeRest === 0) {
+            clearInterval(intervalo);
+            console.log('disabled');
+            disabledButton();
+        }
+    }, 1000);
+    $('#bt-1, #bt-2, #bt-3, #bt-4').click(function () {
+        clearInterval(intervalo);
+    });
 }

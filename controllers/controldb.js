@@ -13,7 +13,7 @@ const agregarJugador = async (nom, punt) => {
 
 const obtenerJugadores = async () => {
     try {
-        const sql = "SELECT * FROM jugadores order by puntuacion desc, id desc limit 20;";
+        const sql = "SELECT * FROM jugadores order by puntuacion desc, id desc;";
         let result = await conn.query(sql);
         return result;
     } catch (error) {

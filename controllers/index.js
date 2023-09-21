@@ -2,7 +2,6 @@ import path from "path";
 import { fileURLToPath } from 'url';
 import { dbcontroller } from "./controldb.js";
 import { paisesController } from "./paisescontrol.js";
-import e from "express";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

@@ -8,7 +8,7 @@ indexrouter.get("/", indexcontroller.home);
 
 indexrouter.post("/post", indexcontroller.post);
 
-indexrouter.post("/postP", indexcontroller.postP);
+indexrouter.get("/postP", indexcontroller.postP);
 
 indexrouter.get("/verif", indexcontroller.verif);
 
