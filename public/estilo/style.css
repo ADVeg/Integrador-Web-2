@@ -1,0 +1,73 @@
+@import url(./menu.css);
+
+h3 {
+    font-weight: bold;
+}
+
+body {
+    background-image: url("../img/Fondo_Banderas.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Esto asegura que el cuerpo ocupe toda la altura de la ventana gráfica. */
+    margin: 0; /* Elimina el margen predeterminado del cuerpo. */
+}
+
+.bandera {
+    max-width: 100%;
+    border: 2px solid #000000;
+}
+
+#container-login {
+    display: block;
+    text-align: center;
+    background-color: #949494d3;
+    padding: 20px;
+    border: 1px solid #949494;
+    border-radius: 10px;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.form-control {
+    margin-right: 3rem;
+}
+
+#mensaje, #mensaje1 {
+    display: none;
+}
+
+#container, #container1, #container2 {
+    display: none;
+}
+#container{
+    flex-direction: column; /* Apilar elementos verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+    text-align: center; /* Centrar el texto */
+    background-color: #949494d3;
+    padding: 20px;
+    border: 1px solid #949494;
+    border-radius: 10px;
+}
+
+#container2{
+    background-color: #888888ee;
+    text-align: center;
+    border-radius: 10px;
+    max-width: 700px;
+}
+
+.btn-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px; /* Espacio entre los botones */
+    justify-items: stretch; /* Estirar los botones para que tengan el mismo tamaño */
+}
+
+.btn-container .btn {
+    width: 100%;
+}

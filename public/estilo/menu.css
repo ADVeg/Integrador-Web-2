@@ -1,0 +1,48 @@
+.Menu-Top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(20,36,51,.8) linear-gradient(0deg,rgba(20,61,102,.2),rgba(20,61,102,0) 50%);
+    border-bottom: 2px solid #22476b;
+    position: fixed!important;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.Menu-Pos-Izquierda{
+    background-image: url("../img/home.png");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ajusta el tamaño de la imagen según tus necesidades */
+    color: transparent; /* Oculta el texto para que solo se vea la imagen */
+    display: inline-block; /* Permite definir el ancho y el alto */
+    width: 32px; /* Ancho del enlace */
+    height: 32px; /* Alto del enlace */
+}
+
+.Menu-Pos-Derecha{
+    background-image: url("../img/king.png");
+    background-repeat: no-repeat;
+    background-size: cover; /* Ajusta el tamaño de la imagen según tus necesidades */
+    color: transparent; /* Oculta el texto para que solo se vea la imagen */
+    display: inline-block; /* Permite definir el ancho y el alto */
+    width: 32px; /* Ancho del enlace */
+    height: 32px; /* Alto del enlace */
+}
+
+.Menu-Pos-Izquierda,.Menu-Pos-Derecha{
+    display: flex;
+    align-items: center;
+    color: white;
+    transition: background-color 0.3s;
+    border-radius: 15px;
+    padding: 5px 5px;
+}
+.Menu-Pos-Derecha:hover,.Menu-Pos-Izquierda:hover{
+    box-shadow: inset 0 0 20px rgba(102,179,255,.2);
+    filter: brightness(1.5)
+}
+
+a{
+    text-decoration: none;
+}

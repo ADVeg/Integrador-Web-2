@@ -1,0 +1,55 @@
+@import url("../../estilo/menu.css");
+
+body {
+    background-image: url("../../img/Fondo_Banderas.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Esto asegura que el cuerpo ocupe toda la altura de la ventana gráfica. */
+    margin: 0;
+    /* Elimina el margen predeterminado del cuerpo. */
+}
+
+.puntuacion-box {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 0px;
+    color: #fff;
+    font-weight: bold;
+}
+
+#container {
+    padding: 5px;
+}
+
+#cont {
+    background-color: #949494d3;
+    border: 1px solid #949494;
+    border-radius: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+#cont::-webkit-scrollbar {
+    width: 6px; /* Ancho de la barra de desplazamiento */
+}
+
+#cont::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color del pulgar (barra de desplazamiento) */
+    border-radius: 10px; /* Redondea las puntas del pulgar */
+}
+
+#cont::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color del pulgar al pasar el cursor sobre él */
+}
+
+#cont::-webkit-scrollbar-button:start:decrement,
+#cont::-webkit-scrollbar-button:end:increment {
+    height: 20px; /* Altura de los extremos de la barra de desplazamiento */
+    border-radius: 10px; /* Redondea las puntas de los extremos */
+    background-color: #ccc; /* Color de los extremos de la barra de desplazamiento */
+}
