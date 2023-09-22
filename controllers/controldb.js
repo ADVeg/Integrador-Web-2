@@ -1,9 +1,9 @@
 import conn from "../todo/dbconfig.js";
 
-const agregarJugador = async (nom, punt) => {
+const agregarJugador = async (nom, punt, tiempo) => {
     try {
-        const sql = "INSERT INTO jugadores (nombre, puntuacion) VALUES (?, ?);";
-        const values = [nom, punt];
+        const sql = "INSERT INTO jugadores (nombre, puntuacion, tiempo) VALUES (?, ?, ?);";
+        const values = [nom, punt, tiempo];
         let result = await conn.query(sql, values);
         return result.affectedRows;
     } catch (error) {
@@ -13,7 +13,7 @@ const agregarJugador = async (nom, punt) => {
 
 const obtenerJugadores = async () => {
     try {
-        const sql = "SELECT * FROM jugadores order by puntuacion desc, id desc;";
+        const sql = "SELECT * FROM jugadores Order By puntuacion DESC, tiempo ASC, id DESC LIMIT 20;";
         let result = await conn.query(sql);
         return result;
     } catch (error) {

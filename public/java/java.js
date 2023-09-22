@@ -1,6 +1,7 @@
 let op;
 let res;
 let cont = 0;
+let tiemporesp = 0;
 
 function verificar(params) {
     if (params === $('#bt-1').text()) {
@@ -45,6 +46,7 @@ function verif(res) {
     $.ajax({
         type: 'get',
         url: '/verif',
+        data: { tiempo: tiemporesp },
         success: function (data) {
             if (data.respuesta === res) {
                 $('#mensaje1').text('respuesta correcta').css({ 'display': 'block', 'font-weight': 'bold', 'margin-top': '10px', 'background-color': 'green' });
@@ -91,6 +93,8 @@ function vistapostP(data) { ////vista postP
         $('#container2').css({ 'display': 'block' });
         $('#nom').text('Felicidades ' + data.nombre);
         $('#punt').text('Su puntuacion fue ' + data.puntuacion);
+        $('#tiempo').text('Su tiempo fue ' + data.tiempo);
+        $('#tiempopromedio').text('Su tiempo promedio por respuesta ' + data.promedio);
         pas();
     }
 }
@@ -228,10 +232,10 @@ function time() {
 
     const intervalo = setInterval(() => {
         timeRest--;
+        tiemporesp = 10-timeRest;
         actualizarTimeRestante(timeRest);
         if (timeRest === 0) {
             clearInterval(intervalo);
-            console.log('disabled');
             disabledButton();
         }
     }, 1000);

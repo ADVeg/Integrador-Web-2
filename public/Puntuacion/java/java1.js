@@ -15,7 +15,7 @@ async function puestos() {
                 }
 
                 var puestoDiv = $('<div class="col puntuacion-box">');
-                puestoDiv.html('Puntuacion:<br>' + element.puntuacion+'<br><br>Nombre:<br>' + element.nombre);
+                puestoDiv.html('Puntuacion: ' + element.puntuacion+ '<br><br>Tiempo: ' + element.tiempo + '<br><br>Nombre:<br>' + element.nombre);
 
                 row.append(puestoDiv);
             });

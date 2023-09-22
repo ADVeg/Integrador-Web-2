@@ -1,0 +1,11 @@
+Profesor disculpe el mensaje por este metodo.
+
+Es para decirle que use la base de datos que deje en github 
+ya que se me salto un punto del tema del tiempo
+y modifique la base asi que la que debe usar la dejo suelta aca junto al js.js
+la db es trivia_mundo use xampp.
+
+Disculpe que lo carge asi es que entregue antes por si tenia algun inconveniente
+y hoy no podia entregar.
+
+Saludos.

@@ -17,6 +17,7 @@ let user;
 let contResp = 0;
 let ps;
 let contverif = 0;
+let tiemp = 0;
 async function cargar() {
     cont = 0;
     contC = 0;
@@ -24,6 +25,7 @@ async function cargar() {
     puntuacion = 0;
     contResp = 0;
     contverif = 0;
+    tiemp = 0;
     await paisesController.paisesall()
         .then((data) => {
             paises = data; //obtener paises all
@@ -64,15 +66,17 @@ async function post(req, res) {
 
 async function postP(req, res) {
     if (contverif < 2) {
-        const re = req.body.respuesta;
+        const re = req.query.respuesta;
         if (ps === re) {
             puntuacion++;
+            console.log(puntuacion);
         }
         cont++;
         contResp++;
         if (contResp > 10) {
-            dbcontroller.agregarJugador(user, puntuacion);
-            res.json({ respuesta: 3, nombre: user, puntuacion: puntuacion, op: 2 }); //si ha respondido 10 veces
+            const prom = tiemp / 10;
+            dbcontroller.agregarJugador(user, puntuacion, tiemp);
+            res.json({ respuesta: 3, nombre: user, puntuacion: puntuacion, op: 2, promedio: prom, tiempo: tiemp }); //si ha respondido 10 veces
         } else {
             ps = paises10[cont].name.common;
             if (cont % 2 === 0) {
@@ -89,10 +93,10 @@ async function postP(req, res) {
     } else {
         res.redirect('/');
     }
-    
 }
 
-async function verif(req, res) {
+async function verif(req, res) { //una verificacion si se quiere obtener la respuesta sin dar clic en la misma
+    tiemp = tiemp + parseInt(req.query.tiempo);
     if (contverif == 0) {
         if (typeof ps==='undefined') {
             res.json({ respuesta: 'No tiene' });
@@ -107,7 +111,7 @@ async function verif(req, res) {
 
 async function puestos(req, res) {
     const puest = await dbcontroller.obtenerJugadores();
-    res.json({ puestos: puest });
+    res.json({ puestos: puest, tiempo: tiemp });
 }
 
 export const indexcontroller = {
